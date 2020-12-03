@@ -1,0 +1,89 @@
+# version: '3'
+
+# services:
+
+#   elasticsearch:
+#     container_name: elasticsearch
+#     image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.9.3-amd64
+#     ports:
+#       - 9200:9200
+#       - 9300:9300
+#     environment:
+#       - "discovery.type=single-node"
+#     restart: always
+
+#   kibana:
+#     container_name: kibana
+#     image: docker.elastic.co/kibana/kibana-oss:7.9.3
+#     depends_on:
+#       - elasticsearch
+#     links:
+#       - elasticsearch
+#     ports:
+#       - 5601:5601
+
+# https://medium.com/@hgmauri/configurando-o-elasticsearch-e-kibana-no-docker-3f4679eb5feb
+
+
+version: '3'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.9.3-amd64
+    volumes:
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+      - elasticdata:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:    
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"     
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      elk:
+        ipv4_address: 11.0.0.2
+    restart: always
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana-oss:7.9.3
+    volumes:
+      - ./kibana/config/:/usr/share/kibana/config:ro 
+    networks:
+      elk:
+        ipv4_address: 11.0.0.3
+    links:
+      - elasticsearch
+    depends_on:
+      - elasticsearch
+    restart: always
+  
+  nginx:
+#    image: nginx:stable
+    build:
+      context: nginx/
+    ports:
+      - "80:80"
+    environment:
+      - KIBANA_USERNAME="admin"
+      - KIBANA_PASSWORD="admin_password"
+#    volumes:
+#      - ./nginx/logs:/var/log/nginx/
+    networks:
+      - elk
+    depends_on:
+      - kibana
+    restart: always
+
+volumes:
+  elasticdata:
+    driver: local
+
+networks:
+  elk:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 11.0.0.0/24
