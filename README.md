@@ -10,7 +10,3 @@
     11.0.0.4	kibana.secop.edu
     11.0.0.4	elastic.secop.edu
     ```
-
-
-
-

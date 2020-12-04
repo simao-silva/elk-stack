@@ -47,6 +47,9 @@ services:
     depends_on:
       - kibana
     restart: always
+    extra_hosts:
+      - "kibana.secop.edu:127.0.0.1"
+      - "elastic.secop.edu:127.0.0.1"
 
 volumes:
   elasticdata:
