@@ -7,11 +7,6 @@ services:
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
       - elasticdata:/usr/share/elasticsearch/data
-#    ports:
-#      - "9200:9200"
-#      - "9200:9200"
-#      - "9200"
-#      - "9300"
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
     ulimits:
@@ -47,11 +42,9 @@ services:
     networks:
       elk:
         ipv4_address: 11.0.0.5
-#    ports:
-#      - "5044:5044"
     volumes:
-      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
-      - ./logstash/pipeline/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./logstash/pipeline/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
     depends_on:
       - elasticsearch
     restart: always
@@ -82,7 +75,7 @@ services:
       elk:
         ipv4_address: 11.0.0.7
     depends_on:
-      - kibana
+      - elasticsearch
       - logstash
     links:
       - elasticsearch
@@ -93,9 +86,7 @@ services:
     restart: always
     volumes:
       - ./filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-      - /tmp/filebeat:/run
-#      - ./filebeat/auth.log:/var/log/secure
+      - /var/log/auth.log:/var/log/secure:ro
 
 
   nginx:
