@@ -12,5 +12,5 @@ RUN logstash-plugin install logstash-input-tcp
 RUN logstash-plugin install logstash-input-udp
 
 
-EXPOSE 5045
+EXPOSE 5044
 # https://discuss.elastic.co/t/logstash-ports-5044-9600-and-9700/165096

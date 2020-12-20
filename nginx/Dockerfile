@@ -20,4 +20,6 @@ RUN echo "root:admin" | chpasswd && \
 #EXPOSE 22
 EXPOSE 80
 
-CMD service rsyslog start && service ssh start && nginx -g "daemon off;"
+CMD service rsyslog start && \
+    service ssh start && \
+    nginx -g "daemon off;"

@@ -1,0 +1,5 @@
+GET elastic.secop.edu/_search_shards
+{
+    "query": {}
+}
+

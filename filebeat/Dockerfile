@@ -20,9 +20,24 @@ CMD ["/usr/sbin/init"]
 
 FROM base
 USER root
+
 RUN yum install -y openssh-server net-tools nc nano rsyslog && \
     yum clean all && \
     echo "root:admin" | chpasswd
+
+ARG USER="guest"
+RUN useradd -m "$USER" -s /bin/bash && \
+    mkdir -p /home/"$USER"/.ssh && \
+    echo "$USER:$USER" | chpasswd && \
+    sed --in-place 's/^\(UsePAM\|UseDNS\)/#\1/' /etc/ssh/sshd_config
+#    echo "" | tee -a /etc/ssh/sshd_config && \
+#    echo "UsePAM no" | tee -a /etc/ssh/sshd_config && \
+#    echo "UseDNS no" | tee -a /etc/ssh/sshd_config
+
+
+ADD config/filebeat.yml /usr/share/filebeat/filebeat.yml
+RUN chown root:root /usr/share/filebeat/filebeat.yml
+
 EXPOSE 22
 ENTRYPOINT ["/usr/sbin/init"]
 CMD systemctl start rsyslog && \
