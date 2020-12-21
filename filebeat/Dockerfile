@@ -5,5 +5,11 @@ RUN yum install -y net-tools nc nano && \
     yum clean all && \
     echo "root:admin" | chpasswd
 
-ADD config/filebeat.yml /usr/share/filebeat/filebeat.yml
-RUN chown root:root /usr/share/filebeat/filebeat.yml
+COPY config/filebeat.yml /usr/share/filebeat/filebeat.yml
+#COPY modules.d/system.yml /usr/share/filebeat/modules.d/system.yml
+RUN chown root:filebeat /usr/share/filebeat/filebeat.yml
+#&& \
+#    filebeat modules enable system && \
+#    filebeat setup
+
+#USER filebeat

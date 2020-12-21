@@ -1,12 +1,16 @@
 # [CC4081] Security Operations - ELK stack
 
 ## Details
-* Deployment:
+* Deployment
     ```shell
     docker-compose up -d
     ```
-* To access both ElasticSearch and Kibana add to your */etc/hosts* the following:
+* Use  
+  * To access both ElasticSearch and Kibana add to your */etc/hosts* the following:
     ```shell
-    11.0.0.4	kibana.secop.edu
-    11.0.0.4	elastic.secop.edu
+    127.0.0.1	elastic.secop.edu
+    127.0.0.1	kibana.secop.edu
     ```
+  * Test it:
+      * cURL - `curl -v elastic.secop.edu:80`
+      * Browser - <http://kibana.secop.edu>

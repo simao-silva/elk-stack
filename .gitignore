@@ -2,4 +2,6 @@
 notes.txt
 tunnel.txt
 queries.txt
-filebeat/auth.log
+ver
+logstash/pipeline/logstash.conf.bak
+logstash/pipeline/logstash.conf.good
