@@ -5,3 +5,4 @@ queries.txt
 ver
 logstash/pipeline/logstash.conf.bak
 logstash/pipeline/logstash.conf.good
+test
