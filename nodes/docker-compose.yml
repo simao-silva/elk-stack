@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  filebeat:
+    build:
+      context: AMD64/
+    networks:
+      elk:
+        ipv4_address: 11.0.0.7
+    ports:
+      - "8022:22"
+    restart: unless-stopped
+    volumes:
+#      - ./filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - /var/log/auth.log:/var/log/secure:ro
+
+networks:
+  elk:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 11.0.0.0/24

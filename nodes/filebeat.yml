@@ -1,15 +1,17 @@
-filebeat:
-  inputs:
-    -
-      paths:
-        - /var/log/auth.log
-      input_type: log
-      multiline.pattern: '^[0-9]{4}-[0-9]{2}-[0-9]{2}'
-      multiline.negate: true
-      multiline.match: after
+# ============================== Filebeat inputs ===============================
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/secure
+    multiline.pattern: '^[0-9]{4}-[0-9]{2}-[0-9]{2}'
+    multiline.negate: true
+    multiline.match: after
 
+# ------------------------------ Logstash Output -------------------------------
 output:
   logstash:
-    hosts: ["172.168.1.78:5044"]
+    hosts: ["192.168.201.160:5044"]
 
+# ================================== Logging ===================================
 logging.level: debug
