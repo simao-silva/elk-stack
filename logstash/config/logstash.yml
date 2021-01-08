@@ -5,4 +5,4 @@
 http.host: "0.0.0.0"
 path.config: /usr/share/logstash/pipeline
 log.level: debug
-path.logs: /var/log/logstash
+#path.logs: /var/log/logstash

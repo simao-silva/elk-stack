@@ -87,8 +87,6 @@ services:
       - elasticsearch
       - kibana
       - logstash
-    ports:
-      - "8022:22"
     restart: unless-stopped
     volumes:
       - ./filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml

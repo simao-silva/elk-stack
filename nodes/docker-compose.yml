@@ -1,17 +1,29 @@
 version: '3'
 
 services:
+
+  metricbeat:
+    build:
+      context: AMD64/metricbeat
+    networks:
+      elk:
+        ipv4_address: 11.0.0.6
+    restart: unless-stopped
+    volumes:
+      - ./AMD64/metricbeat/config/metricbeat.yml:/usr/share/metricbeat/config/metricbeat.yml
+      - /proc:/hostfs/proc:ro
+      - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
+      - /:/hostfs:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
   filebeat:
     build:
-      context: AMD64/
+      context: AMD64/filebeat
     networks:
       elk:
         ipv4_address: 11.0.0.7
-    ports:
-      - "8022:22"
     restart: unless-stopped
     volumes:
-#      - ./filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml
       - /var/log/auth.log:/var/log/secure:ro
 
 networks:
