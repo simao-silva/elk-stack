@@ -1,7 +1,6 @@
 FROM docker.elastic.co/logstash/logstash-oss:7.10.1
 
-# Add your logstash plugins setup here
-# Example: RUN logstash-plugin install logstash-filter-json
+ENV LC_TIME en_GB.UTF-8
 
 USER root
 RUN echo "root:admin" | chpasswd

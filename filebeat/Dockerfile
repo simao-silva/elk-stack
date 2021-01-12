@@ -1,4 +1,7 @@
 FROM docker.elastic.co/beats/filebeat-oss:7.10.1
+
+ENV LC_TIME en_GB.UTF-8
+
 USER root
 
 RUN yum install -y net-tools nc nano && \

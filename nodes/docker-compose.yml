@@ -3,6 +3,7 @@ version: '3'
 services:
 
   metricbeat:
+    hostname: nemo-metricbeat
     build:
       context: AMD64/metricbeat
     networks:
@@ -10,13 +11,15 @@ services:
         ipv4_address: 11.0.0.6
     restart: unless-stopped
     volumes:
-      - ./AMD64/metricbeat/config/metricbeat.yml:/usr/share/metricbeat/config/metricbeat.yml
+      - ./AMD64/metricbeat/config/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml
+      - ./AMD64/metricbeat/modules.d/system.yml:/usr/share/metricbeat/modules.d/system.yml
       - /proc:/hostfs/proc:ro
       - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
       - /:/hostfs:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/run/docker.sock:/var/run/docker.sock
 
   filebeat:
+    hostname: nemo-filebeat
     build:
       context: AMD64/filebeat
     networks:

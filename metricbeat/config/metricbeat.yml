@@ -1417,7 +1417,7 @@ output.logstash:
 
     # Optional index name. The default index name is set to metricbeat
     # in all lowercase.
-    index: 'metricbeat'
+    # index: 'metricbeat'
 
     # SOCKS5 proxy server URL
     #proxy_url: socks5://user:password@socks5-server:2233
