@@ -28,8 +28,8 @@ metricbeat.max_start_delay: 20s
 
   #============================== Autodiscover ===================================
 
-# Autodiscover allows you to detect changes in the system and spawn new modules
-# as they happen.
+  # Autodiscover allows you to detect changes in the system and spawn new modules
+  # as they happen.
 
 #metricbeat.autodiscover:
 # List of enabled autodiscover providers
@@ -77,11 +77,11 @@ metricbeat.modules:
       #- service        # systemd service information
     enabled: true
     period: 5m
-    processes: [ '.*' ]
+    processes: ['.*']
 
     # Configure the metric types that are included by these metricsets.
-    cpu.metrics: [ "percentages","normalized_percentages" ]  # The other available option is ticks.
-    core.metrics: [ "percentages" ]  # The other available option is ticks.
+    cpu.metrics:  ["percentages","normalized_percentages"]  # The other available option is ticks.
+    core.metrics: ["percentages"]  # The other available option is ticks.
 
       # A list of filesystem types to ignore. The filesystem metricset will not
       # collect data from filesystems matching any of the specified types, and
@@ -274,8 +274,8 @@ metricbeat.modules:
       #read:
       # Reader flush timeout, waiting for more events to become available, so
       # to fill a complete batch as required by the outputs.
-    # If flush_timeout is 0, all available events are forwarded to the
-    # outputs immediately.
+      # If flush_timeout is 0, all available events are forwarded to the
+      # outputs immediately.
     # The default value is 0s.
     #flush.timeout: 0s
 
@@ -472,7 +472,7 @@ output.elasticsearch:
   # Scheme and port can be left out and will be set to the default (http and 9200)
   # In case you specify and additional path, the scheme is required: http://localhost:9200/path
   # IPv6 addresses should always be defined as: https://[2001:db8::1]:9200
-  hosts: [ "localhost:9200" ]
+  hosts: ["localhost:9200"]
 
     # Set gzip compression level.
     #compression_level: 0
@@ -609,8 +609,8 @@ output.elasticsearch:
     # Password of the Kerberos user. It is used when auth_type is set to password.
     #kerberos.password: changeme
 
-  # Kerberos realm.
-  #kerberos.realm: ELASTIC
+    # Kerberos realm.
+    #kerberos.realm: ELASTIC
 
   # ------------------------------ Logstash Output -------------------------------
 output.logstash:
@@ -618,7 +618,7 @@ output.logstash:
   enabled: true
 
   # The Logstash hosts
-  hosts: [ "192.168.201.160:5044" ]
+  hosts: ["192.168.201.160:5044"]
 
   # Number of workers per Logstash host.
   #worker: 1
@@ -661,7 +661,7 @@ output.logstash:
 
   # Optional index name. The default index name is set to metricbeat
   # in all lowercase.
-  #index: 'metricbeat'
+  index: 'metricbeatv2'
 
   # SOCKS5 proxy server URL
   #proxy_url: socks5://user:password@socks5-server:2233

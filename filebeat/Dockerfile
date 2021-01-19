@@ -1,7 +1,5 @@
 FROM docker.elastic.co/beats/filebeat-oss:7.10.1
 
-ENV LC_TIME en_GB.UTF-8
-
 USER root
 
 RUN yum install -y net-tools nc nano && \
@@ -10,9 +8,5 @@ RUN yum install -y net-tools nc nano && \
 
 COPY config/filebeat.yml /usr/share/filebeat/filebeat.yml
 #COPY modules.d/system.yml /usr/share/filebeat/modules.d/system.yml
-RUN chown root:filebeat /usr/share/filebeat/filebeat.yml
-#&& \
-#    filebeat modules enable system && \
-#    filebeat setup
 
-#USER filebeat
+RUN chown root:filebeat /usr/share/filebeat/filebeat.yml
